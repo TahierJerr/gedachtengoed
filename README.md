@@ -38,12 +38,12 @@ Aanbevolen: **Vercel**.
 1. Push de repository naar GitHub.
 2. Importeer het project in Vercel.
 3. Vul de environment variables in (zie `.env.example`):
-   - `NEXT_PUBLIC_SITE_URL` — bv. `https://gedachtengoedpsychotherapie.nl`
-   - `RESEND_API_KEY` — vraag aan via [resend.com](https://resend.com)
-   - `CONTACT_FROM_EMAIL` — verzendadres op een geverifieerd domein in Resend
-   - `CONTACT_TO_EMAIL` — `GedachtenGoedPsychotherapie@gmail.com`
-   - `NEXT_PUBLIC_INTRAMED_DEBITEURNUMMER` — debiteurnummer uit Mijn Intramed
-   - `NEXT_PUBLIC_INTRAMED_ADM_NUMBER` — administratienummer (alleen het cijfer, bv. `01`)
+   - `NEXT_PUBLIC_SITE_URL`, bv. `https://gedachtengoedpsychotherapie.nl`
+   - `RESEND_API_KEY`, vraag aan via [resend.com](https://resend.com)
+   - `CONTACT_FROM_EMAIL`, verzendadres op een geverifieerd domein in Resend
+   - `CONTACT_TO_EMAIL`, `GedachtenGoedPsychotherapie@gmail.com`
+   - `NEXT_PUBLIC_INTRAMED_DEBITEURNUMMER`, debiteurnummer uit Mijn Intramed
+   - `NEXT_PUBLIC_INTRAMED_ADM_NUMBER`, administratienummer (alleen het cijfer, bv. `01`)
 4. Deploy.
 
 ## Patiëntenportaal (Intramed)
@@ -68,11 +68,11 @@ De website is opgezet volgens Next.js 16 SEO best practices voor 2026:
 
 ### Structured Data (JSON-LD)
 
-- **MedicalBusiness** (subtype van LocalBusiness) op alle pagina's — Google's aanbevolen schema voor zorgaanbieders, geeft toegang tot Maps/local pack rich results
+- **MedicalBusiness** (subtype van LocalBusiness) op alle pagina's, Google's aanbevolen schema voor zorgaanbieders, geeft toegang tot Maps/local pack rich results
 - **WebSite** schema voor de hele site
 - **Physician** schema op de over-mij pagina met BIG-registraties en beroepsverenigingen
 - **BreadcrumbList** op elke inner page
-- **FAQPage** schema op de aanmelden-pagina met de meest gestelde vragen — kwalificeert nog steeds voor FAQ rich snippets in de zorgsector (zeldzaamheid in 2026)
+- **FAQPage** schema op de aanmelden-pagina met de meest gestelde vragen, kwalificeert nog steeds voor FAQ rich snippets in de zorgsector (zeldzaamheid in 2026)
 
 ### Performance
 
@@ -102,14 +102,14 @@ Het formulier is opgezet volgens de AVG-beginselen voor zorgverleners:
 
 1. **Dataminimalisatie**: alleen naam, e-mail, optioneel telefoon, onderwerp en bericht.
 2. **Doelbinding**: gegevens worden uitsluitend gebruikt om contact op te nemen.
-3. **Grondslag = toestemming** (art. 6 lid 1 sub a AVG) — expliciete, niet vooraf aangevinkte checkbox.
+3. **Grondslag = toestemming** (art. 6 lid 1 sub a AVG), expliciete, niet vooraf aangevinkte checkbox.
 4. **Transparantie bij het verzamelmoment**: doel, grondslag, bewaartermijn en link naar de privacyverklaring direct boven het formulier.
 5. **Waarschuwing** tegen het versturen van medische of gezondheidsgegevens.
 6. **Geen tracking, geen cookies van derden, geen Google Fonts** → geen cookiebanner nodig.
 7. **HTTPS only** (door Vercel gegarandeerd).
 8. **Server-side validatie** met Zod naast client-side validatie.
 9. **Rate limiting** in de API route (max 5 berichten per IP per uur).
-10. **Honeypot** in plaats van Google reCAPTCHA — geen US-dataprocessor-leak.
+10. **Honeypot** in plaats van Google reCAPTCHA, geen US-dataprocessor-leak.
 11. **Geen database**: berichten worden alleen per e-mail doorgestuurd, niet opgeslagen op de server.
 
 ### Wat de praktijk zelf nog moet regelen
@@ -123,24 +123,25 @@ Het formulier is opgezet volgens de AVG-beginselen voor zorgverleners:
 
 In `emails/` staan twee React Email templates die qua kleur en typografie 1-op-1 aansluiten op de website (sage green, Georgia serif, cream achtergrond):
 
-- `practice-notification.tsx` — naar Siepie. Bevat alle gegevens van de afzender, een geformatteerde recap van het bericht, en `reply-to` ingesteld op het mailadres van de afzender zodat ze direct kan antwoorden.
-- `client-confirmation.tsx` — naar de aanvrager. Bevestigt ontvangst, recap van eigen bericht, info over wachttijd en verwijsbrief, crisis-instructies onderaan, en de zakelijke voettekst met KVK/AGB/BIG-registraties.
+- `practice-notification.tsx`, naar Siepie. Bevat alle gegevens van de afzender, een geformatteerde recap van het bericht, en `reply-to` ingesteld op het mailadres van de afzender zodat ze direct kan antwoorden.
+- `client-confirmation.tsx`, naar de aanvrager. Bevestigt ontvangst, recap van eigen bericht, info over wachttijd en verwijsbrief, crisis-instructies onderaan, en de zakelijke voettekst met KVK/AGB/BIG-registraties.
 
 Beide templates zijn geheel via inline CSS gestyled (mail clients ondersteunen geen CSS variables) maar gebruiken een gedeelde `theme.ts` zodat ze in sync blijven met de website.
 
 ## Structuur
 
-- `app/api/contact/route.ts` — AVG-conform formulier-endpoint, stuurt beide emails via Resend
-- `app/opengraph-image.tsx` — dynamisch gegenereerd 1200×630 OG image
-- `app/sitemap.ts` / `app/robots.ts` — automatische sitemap en robots.txt
-- `lib/site-config.ts` — alle site-gegevens op één plek
-- `lib/schema.ts` — JSON-LD generators (MedicalBusiness, Physician, FAQ, Breadcrumb, WebSite)
-- `components/seo/json-ld.tsx` — server component voor JSON-LD injectie
-- `emails/` — React Email templates en gedeelde theme
+- `app/api/contact/route.ts`, AVG-conform formulier-endpoint, stuurt beide emails via Resend
+- `app/opengraph-image.tsx`, dynamisch gegenereerd 1200×630 OG image
+- `app/sitemap.ts` / `app/robots.ts`, automatische sitemap en robots.txt
+- `lib/site-config.ts`, alle site-gegevens op één plek
+- `lib/schema.ts`, JSON-LD generators (MedicalBusiness, Physician, FAQ, Breadcrumb, WebSite)
+- `components/seo/json-ld.tsx`, server component voor JSON-LD injectie
+- `emails/`, React Email templates en gedeelde theme
 
 ## Aandachtspunten
 
 - De URL-slugs zijn identiek aan de oude website, dus zonder verlies van SEO over te zetten.
-- Het oude kontaktformulier staat als "niet actief" — dit nieuwe formulier vervangt dat.
-- De Google Maps-iframe op `/contact` zet cookies van Google — staat vermeld in het cookiebeleid. Voor strikter cookiebeleid kan dit vervangen worden door een statische screenshot met link naar Google Maps.
+- Het oude kontaktformulier staat als "niet actief", dit nieuwe formulier vervangt dat.
+- De Google Maps-iframe op `/contact` zet cookies van Google, staat vermeld in het cookiebeleid. Voor strikter cookiebeleid kan dit vervangen worden door een statische screenshot met link naar Google Maps.
+
 # gedachtengoed
