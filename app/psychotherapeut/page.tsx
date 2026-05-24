@@ -4,6 +4,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Koru } from "@/components/site/koru";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema, physicianSchema } from "@/lib/schema";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Siepie – Psychotherapeut & GZ-Psycholoog",
@@ -31,7 +32,13 @@ export default function PsychotherapeutPage() {
       <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex justify-center mb-12">
           <div className="h-40 w-40 rounded-full bg-[var(--accent-soft)] flex items-center justify-center">
-            <Koru size={100} className="text-[var(--accent-dark)]" />
+            <Image
+                src="/Siepie_2.jpg"
+                alt="Foto van Siepie Zonderland"
+                width={160}
+                height={160}
+                className="rounded-full object-cover"
+              />
           </div>
         </div>
 
@@ -57,7 +64,7 @@ export default function PsychotherapeutPage() {
           <h2>Registraties</h2>
           <p>
             <Link
-              href="https://zoeken.bigregister.nl/zorgverlener/1a19842e-959d-4083-afa4-7ca5ce127f18"
+              href="https://zoeken.bigregister.nl/zorgverlener/f5926bd8-d83b-44ca-9249-997a053d8474"
               target="_blank"
               rel="noopener noreferrer"
             >
