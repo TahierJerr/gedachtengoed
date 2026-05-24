@@ -6,7 +6,7 @@ import { ClientConfirmationEmail } from "@/emails/client-confirmation";
 
 const contactSchema = z.object({
   name: z.string().min(2).max(100),
-  email: z.string().email(),
+  email: z.email(),
   phone: z.string().max(20).optional().or(z.literal("")),
   subject: z.string().min(2).max(150),
   message: z.string().min(10).max(2000),
