@@ -6,7 +6,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
-  /* config options here */
 };
 
 export default withBundleAnalyzer(nextConfig);

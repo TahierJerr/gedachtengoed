@@ -4,32 +4,32 @@ import { Koru } from "./koru";
 
 export function SiteFooter() {
     return (
-        <footer className="bg-[var(--muted-background)] border-t border-[var(--border)] mt-24">
+        <footer className="bg-muted-background border-t border-border mt-24">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                     <div className="md:col-span-2">
                         <div className="flex items-center gap-3 mb-4">
-                            <Koru size={36} className="text-[var(--accent-dark)]" />
+                            <Koru size={36} className="text-accent-dark" />
                             <div>
-                                <div className="font-serif text-lg text-[var(--accent-dark)]">
+                                <div className="font-serif text-lg text-accent-dark">
                                     GedachtenGoed
                                 </div>
-                                <div className="text-xs text-[var(--muted)]">
+                                <div className="text-xs text-muted">
                                     Praktijk voor Psychotherapie
                                 </div>
                             </div>
                         </div>
-                        <p className="text-sm text-[var(--muted)] leading-relaxed max-w-md">
+                        <p className="text-sm text-muted leading-relaxed max-w-md">
                             Professionele psychotherapie op maat, gericht op verandering, herstel
                             en persoonlijke groei.
                         </p>
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-semibold text-[var(--accent-dark)] mb-3 font-sans">
+                        <h3 className="text-sm font-semibold text-accent-dark mb-3 font-sans">
                             Contact
                         </h3>
-                        <ul className="space-y-2 text-sm text-[var(--muted)]">
+                        <ul className="space-y-2 text-sm text-muted">
                             <li className="flex items-start gap-2">
                                 <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
                                 <span>Van Aelstlaan 79<br />5503 BC Veldhoven</span>
@@ -38,7 +38,7 @@ export function SiteFooter() {
                                 <Mail className="h-4 w-4 mt-0.5 shrink-0" />
                                 <a
                                     href="mailto:GedachtenGoedPsychotherapie@gmail.com"
-                                    className="hover:text-[var(--accent-dark)] break-all"
+                                    className="hover:text-accent-dark break-all"
                                 >
                                     GedachtenGoedPsychotherapie@gmail.com
                                 </a>
@@ -51,14 +51,14 @@ export function SiteFooter() {
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-semibold text-[var(--accent-dark)] mb-3 font-sans">
+                        <h3 className="text-sm font-semibold text-accent-dark mb-3 font-sans">
                             Voor cliënten
                         </h3>
-                        <ul className="space-y-2 text-sm text-[var(--muted)]">
+                        <ul className="space-y-2 text-sm text-muted">
                             <li>
                                 <Link
                                     href="/patientenportaal"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Patiëntenportaal
                                 </Link>
@@ -66,7 +66,7 @@ export function SiteFooter() {
                             <li>
                                 <Link
                                     href="/aanmelden-en-werkwijze"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Aanmelden & werkwijze
                                 </Link>
@@ -74,7 +74,7 @@ export function SiteFooter() {
                             <li>
                                 <Link
                                     href="/contact"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Contact
                                 </Link>
@@ -83,14 +83,14 @@ export function SiteFooter() {
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-semibold text-[var(--accent-dark)] mb-3 font-sans">
+                        <h3 className="text-sm font-semibold text-accent-dark mb-3 font-sans">
                             Informatie
                         </h3>
-                        <ul className="space-y-2 text-sm text-[var(--muted)]">
+                        <ul className="space-y-2 text-sm text-muted">
                             <li>
                                 <Link
                                     href="/voorwaarden"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Voorwaarden
                                 </Link>
@@ -98,7 +98,7 @@ export function SiteFooter() {
                             <li>
                                 <Link
                                     href="/privacyverklaring"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Privacyverklaring
                                 </Link>
@@ -106,7 +106,7 @@ export function SiteFooter() {
                             <li>
                                 <Link
                                     href="/disclaimer"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Disclaimer
                                 </Link>
@@ -114,7 +114,7 @@ export function SiteFooter() {
                             <li>
                                 <Link
                                     href="/cookiebeleid"
-                                    className="hover:text-[var(--accent-dark)]"
+                                    className="hover:text-accent-dark"
                                 >
                                     Cookiebeleid
                                 </Link>
@@ -123,7 +123,7 @@ export function SiteFooter() {
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-[var(--muted)]">
+                <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-muted">
                     <div>
                         © {new Date().getFullYear()} Praktijk voor Psychotherapie GedachtenGoed
                     </div>

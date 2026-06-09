@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/site/page-hero";
-import { Koru } from "@/components/site/koru";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema, physicianSchema } from "@/lib/schema";
 import Image from "next/image";
@@ -31,7 +30,7 @@ export default function PsychotherapeutPage() {
 
       <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex justify-center mb-12">
-          <div className="h-40 w-40 rounded-full bg-[var(--accent-soft)] flex items-center justify-center">
+          <div className="h-40 w-40 rounded-full bg-accent-soft flex items-center justify-center">
             <Image
                 src="/Siepie_2.jpg"
                 alt="Foto van Siepie Zonderland"

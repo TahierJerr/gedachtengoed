@@ -26,7 +26,7 @@ export default function PrivacyverklaringPage() {
             />
 
             <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 prose-content">
-                <p className="text-sm text-[var(--muted)]">
+                <p className="text-sm text-muted">
                     Laatst bijgewerkt: februari 2026
                 </p>
 
