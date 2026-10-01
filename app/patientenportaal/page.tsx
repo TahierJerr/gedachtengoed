@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, Lock, LogIn, UserPlus } from "lucide-react";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -6,16 +5,18 @@ import { Callout } from "@/components/site/callout";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { intramedConfigured, intramedPortal } from "@/lib/intramed";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema } from "@/lib/schema";
 import { PortalAction } from "./portal-action";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Patiëntenportaal: inschrijven en inloggen",
     description:
         "Toegang tot het patiëntenportaal van Praktijk voor Psychotherapie GedachtenGoed. Inschrijven, inloggen of vragenlijsten invullen via de beveiligde omgeving van Intramed.",
-    alternates: { canonical: "/patientenportaal" },
-};
+    path: "/patientenportaal",
+    markdown: true,
+});
 
 export default function PatientenportaalPage() {
     return (

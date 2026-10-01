@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Praktijkinfo: kwaliteit, beroepscode en klachten",
     description:
         "Informatie over praktijkvoering, kwaliteitsstatuut, beroepscode, rechten, privacy en de klachtenprocedure van Praktijk voor Psychotherapie GedachtenGoed.",
-    alternates: { canonical: "/praktijkinfo" },
-};
+    path: "/praktijkinfo",
+    markdown: true,
+});
 
 export default function PraktijkInfoPage() {
     return (

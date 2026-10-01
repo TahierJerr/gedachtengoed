@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema, personSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Siepie Zonderland, psychotherapeut en GZ-psycholoog in Veldhoven",
     description:
         "Siepie Zonderland is BIG-geregistreerd GZ-Psycholoog en Psychotherapeut. Sinds 1997 werkzaam in de GGZ, met ervaring in angst-, stemmings-, trauma- en persoonlijkheidsproblematiek.",
-    alternates: { canonical: "/psychotherapeut" },
-};
+    path: "/psychotherapeut",
+    markdown: true,
+});
 
 export default function PsychotherapeutPage() {
     const { business } = siteConfig;

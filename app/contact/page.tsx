@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ContactForm } from "@/components/site/contact-form";
 import { CrisisCallout } from "@/components/site/crisis-callout";
 import { MapEmbed } from "@/components/site/map-embed";
 import { PageHero } from "@/components/site/page-hero";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema } from "@/lib/schema";
 import { mailto, siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Contact en aanmelden",
     description:
         "Neem contact op of meld u aan bij Praktijk voor Psychotherapie GedachtenGoed, Van Aelstlaan 79 in Veldhoven, via het contactformulier of per e-mail.",
-    alternates: { canonical: "/contact" },
-};
+    path: "/contact",
+    markdown: true,
+});
 
 export default function ContactPage() {
     const { contact, openingHours } = siteConfig;

@@ -1,19 +1,20 @@
-import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Callout } from "@/components/site/callout";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
 import { complaints } from "@/lib/complaints";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Voor wie: psychotherapie voor volwassenen",
     description:
         "De praktijk is gericht op volwassenen vanaf 18 jaar, voor klachten zoals angst, somberheid, trauma, rouw, een negatief zelfbeeld en persoonlijkheidsproblematiek.",
-    alternates: { canonical: "/voor-wie" },
-};
+    path: "/voor-wie",
+    markdown: true,
+});
 
 export default function VoorWiePage() {
     return (

@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Privacyverklaring",
     description:
         "Privacyverklaring van Praktijk voor Psychotherapie GedachtenGoed conform de Algemene Verordening Gegevensbescherming (AVG).",
-    alternates: { canonical: "/privacyverklaring" },
-};
+    path: "/privacyverklaring",
+});
 
 export default function PrivacyverklaringPage() {
     return (

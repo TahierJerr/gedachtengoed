@@ -1,25 +1,19 @@
-import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
+import { rates } from "@/lib/rates";
 import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Tarieven en vergoedingen psychotherapie",
     description:
         "Tarieven, vergoedingen en betalingsvoorwaarden van Praktijk voor Psychotherapie GedachtenGoed in Veldhoven, volgens het Zorgprestatiemodel van de NZa.",
-    alternates: { canonical: "/voorwaarden" },
-};
-
-const tarieven = [
-    { code: "C00570", desc: "Diagnostiek / intakegesprek 60 min", price: "€ 231,50" },
-    { code: "C00505", desc: "Behandelsessie 45 min", price: "€ 172,85" },
-    { code: "C00635", desc: "Behandelsessie 60 min", price: "€ 205,96" },
-    { code: "OV0007", desc: "Intercollegiaal overleg (kort > 5 min)", price: "€ 32,50" },
-    { code: "OV0008", desc: "Intercollegiaal overleg (lang > 15 min)", price: "€ 93,60" },
-];
+    path: "/voorwaarden",
+    markdown: true,
+});
 
 export default function VoorwaardenPage() {
     return (
@@ -121,7 +115,7 @@ export default function VoorwaardenPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
-                            {tarieven.map((tarief) => (
+                            {rates.map((tarief) => (
                                 <tr key={tarief.code}>
                                     <td className="px-5 py-3.5">{tarief.desc}</td>
                                     <td className="hidden px-5 py-3.5 text-muted sm:table-cell">

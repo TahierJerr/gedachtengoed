@@ -86,3 +86,16 @@ daarom rechtstreeks naar `importaal.intramedonline.nl/{debiteurnummer}/ADM{xx}/�
 livegang moet in Intramed de externe-toegang-URL op
 `https://gedachtengoedpsychotherapie.nl/patientenportaal` staan (Systeem → Systeemgegevens
 → tabblad 10: Externe toegang).
+
+## AI-assistenten en zoekmachines
+
+- `/llms.txt`: korte wegwijzer voor AI-assistenten (llmstxt.org), met links naar de
+  markdown-versie van elke pagina; `/llms-full.txt` bevat alles in één document.
+- `/<pagina>.md` (de homepage: `/index.md`): markdown-versie van een pagina. De inhoud komt
+  uit `lib/markdown-pages.ts` en gebruikt dezelfde gegevens als de site (wachttijd, tarieven,
+  behandelvormen, klachten, veelgestelde vragen). Wijzigt de lopende tekst van een pagina, werk
+  dan ook de samenvatting in dat bestand bij.
+- Markdown-versies hebben `noindex` en een canonieke link naar de gewone pagina.
+- `lib/page-metadata.ts`: titel, beschrijving, canonieke link en deelgegevens per pagina.
+- Search Console en Bing: zet de verificatiecode in `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+  of `NEXT_PUBLIC_BING_SITE_VERIFICATION` in Vercel en deploy opnieuw.

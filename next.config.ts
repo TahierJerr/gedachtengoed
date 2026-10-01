@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
     async headers() {
         return [{ source: "/:path*", headers: securityHeaders }];
     },
+    // Markdown-versie van een pagina voor AI-assistenten: /contact.md, /index.md (zie /llms.txt).
+    async rewrites() {
+        return [{ source: "/:slug([a-z-]+).md", destination: "/markdown/:slug" }];
+    },
     // www stuurt door naar het adres zonder www, zodat er één adres in zoekmachines staat.
     async redirects() {
         return [

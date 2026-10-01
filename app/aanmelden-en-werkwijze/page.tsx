@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Clock } from "lucide-react";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -9,16 +8,18 @@ import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
 import { signupFaq } from "@/lib/faq";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Aanmelden en werkwijze: wachttijd, intake en verwijsbrief",
     description:
         "Aanmelden bij Praktijk voor Psychotherapie GedachtenGoed in Veldhoven. Actuele wachttijd, verwijsbrief, intake, behandelovereenkomst en informatie over crisis en waarneming.",
-    alternates: { canonical: "/aanmelden-en-werkwijze" },
-};
+    path: "/aanmelden-en-werkwijze",
+    markdown: true,
+});
 
 export default function AanmeldenPage() {
     const { waitingTime } = siteConfig;

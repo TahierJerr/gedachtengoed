@@ -1,19 +1,20 @@
-import type { Metadata } from "next";
 import { ExternalLink } from "lucide-react";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema } from "@/lib/schema";
 import { therapies } from "@/lib/therapies";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Behandelaanbod: schematherapie, EMDR, CGT en EFT",
     description:
         "Praktijk GedachtenGoed in Veldhoven biedt integratieve psychotherapie: cliëntgerichte therapie, EFT, cognitieve gedragstherapie, schematherapie, EMDR en NET.",
-    alternates: { canonical: "/behandelaanbod" },
-};
+    path: "/behandelaanbod",
+    markdown: true,
+});
 
 export default function BehandelaanbodPage() {
     return (

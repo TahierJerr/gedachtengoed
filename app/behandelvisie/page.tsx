@@ -1,19 +1,20 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Koru } from "@/components/site/koru";
 import { PageBody } from "@/components/site/page-body";
 import { PageHero } from "@/components/site/page-hero";
 import { SignupAside } from "@/components/site/signup-aside";
+import { pageMetadata } from "@/lib/page-metadata";
 import { photos } from "@/lib/photos";
 import { breadcrumbSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: "Behandelvisie: persoonsgerichte psychotherapie",
     description:
         "Persoonsgericht werken waarbij de ontwikkeling van de persoon als geheel centraal staat. Echt contact aangaan, niet veroordelend, betrokken en empathisch.",
-    alternates: { canonical: "/behandelvisie" },
-};
+    path: "/behandelvisie",
+    markdown: true,
+});
 
 export default function BehandelvisiePage() {
     return (
