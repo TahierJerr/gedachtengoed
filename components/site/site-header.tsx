@@ -24,7 +24,6 @@ export function SiteHeader() {
                         href="/"
                         onClick={closeMenu}
                         className="flex shrink-0 items-center gap-3"
-                        aria-label={`${siteConfig.shortName} ${siteConfig.tagline}, naar de homepage`}
                     >
                         <Koru size={44} className="h-10 w-10 text-accent-dark sm:h-11 sm:w-11" />
                         <span className="flex flex-col leading-tight">
