@@ -107,7 +107,10 @@ export function SiteFooter() {
 
                 <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm sm:flex-row sm:justify-between">
                     <p>
-                        © {new Date().getFullYear()} {siteConfig.name}
+                        © {new Date().getFullYear()} {siteConfig.name}. Website door{" "}
+                        <a href="https://modexsoftware.nl/" rel="noopener" className={linkClass}>
+                            MODEX
+                        </a>
                     </p>
                     <ul className="flex flex-wrap gap-x-5 gap-y-1">
                         <li>KVK {business.kvk}</li>
