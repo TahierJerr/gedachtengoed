@@ -1,118 +1,110 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageHero } from "@/components/site/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
-import { breadcrumbSchema, physicianSchema } from "@/lib/schema";
-import Image from "next/image";
+import { PageBody } from "@/components/site/page-body";
+import { PageHero } from "@/components/site/page-hero";
+import { SignupAside } from "@/components/site/signup-aside";
+import { photos } from "@/lib/photos";
+import { breadcrumbSchema, personSchema } from "@/lib/schema";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Siepie – Psychotherapeut & GZ-Psycholoog",
-  description:
-    "Siepie Zonderland,  BIG-geregistreerd GZ-Psycholoog en Psychotherapeut. Sinds 1997 werkzaam in de GGZ met ervaring in angst-, stemmings-, trauma- en persoonlijkheidsproblematiek.",
-  alternates: { canonical: "/psychotherapeut" },
+    title: "Siepie Zonderland, psychotherapeut en GZ-psycholoog in Veldhoven",
+    description:
+        "Siepie Zonderland is BIG-geregistreerd GZ-Psycholoog en Psychotherapeut. Sinds 1997 werkzaam in de GGZ, met ervaring in angst-, stemmings-, trauma- en persoonlijkheidsproblematiek.",
+    alternates: { canonical: "/psychotherapeut" },
 };
 
 export default function PsychotherapeutPage() {
-  return (
-    <>
-      <JsonLd data={physicianSchema()} />
-      <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Over mij", path: "/psychotherapeut" },
-        ])}
-      />
-      <PageHero
-        eyebrow="Over mij"
-        title="Siepie Zonderland"
-        intro="Psychotherapeut en GZ-Psycholoog · Betrokken, professioneel, deskundig, ervaren, betrouwbaar, benaderbaar."
-      />
+    const { business } = siteConfig;
 
-      <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex justify-center mb-12">
-          <div className="h-40 w-40 rounded-full bg-accent-soft flex items-center justify-center">
-            <Image
-                src="/Siepie_2.jpg"
-                alt="Foto van Siepie Zonderland"
-                width={160}
-                height={160}
-                className="rounded-full object-cover"
-              />
-          </div>
-        </div>
+    return (
+        <>
+            <JsonLd data={personSchema()} />
+            <JsonLd
+                data={breadcrumbSchema([
+                    { name: "Home", path: "/" },
+                    { name: "Over mij", path: "/psychotherapeut" },
+                ])}
+            />
+            <PageHero
+                eyebrow="Over mij"
+                title="Siepie Zonderland"
+                intro="Psychotherapeut en GZ-Psycholoog. Betrokken, professioneel, deskundig, ervaren, betrouwbaar en benaderbaar."
+                photo={photos.siepie}
+            />
 
-        <div className="prose-content">
-          <p>
-            Mijn naam is Siepie Zonderland en ik ben BIG-geregistreerd
-            GZ-Psycholoog en Psychotherapeut. Sinds 1997 heb ik op verschillende
-            werkplekken binnen de geestelijke gezondheidszorg gewerkt. Ik heb
-            onder andere veel behandelervaring op gebied van angst- en
-            stemmingsklachten, werk gerelateerde en interpersoonlijke
-            problematiek, (complexe) trauma klachten, zelfbeeld problemen en
-            persoonlijkheidsproblemen.
-          </p>
-          <p>
-            Op dit moment combineer ik het werken in mijn eigen praktijk met het
-            werken bij een grotere instelling voor gespecialiseerde geestelijke
-            gezondheidszorg. Binnen mijn praktijk bied ik psychotherapeutische
-            behandelingen gericht op verandering, herstel en persoonlijke groei
-            in een persoonlijke setting. Dit doe ik met veel enthousiasme en
-            geeft me veel voldoening en vrijheid.
-          </p>
+            <PageBody aside={<SignupAside />}>
+                <p>
+                    Mijn naam is Siepie Zonderland en ik ben BIG-geregistreerd GZ-Psycholoog en
+                    Psychotherapeut. Sinds 1997 heb ik op verschillende werkplekken binnen de
+                    geestelijke gezondheidszorg gewerkt. Ik heb onder andere veel behandelervaring
+                    op gebied van angst- en stemmingsklachten, werkgerelateerde en interpersoonlijke
+                    problematiek, (complexe) traumaklachten, zelfbeeldproblemen en
+                    persoonlijkheidsproblemen.
+                </p>
+                <p>
+                    Op dit moment combineer ik het werken in mijn eigen praktijk met het werken bij
+                    een grotere instelling voor gespecialiseerde geestelijke gezondheidszorg. Binnen
+                    mijn praktijk bied ik psychotherapeutische behandelingen gericht op verandering,
+                    herstel en persoonlijke groei in een persoonlijke setting. Dit doe ik met veel
+                    enthousiasme en het geeft me veel voldoening en vrijheid.
+                </p>
 
-          <h2>Registraties</h2>
-          <p>
-            <Link
-              href="https://zoeken.bigregister.nl/zorgverlener/f5926bd8-d83b-44ca-9249-997a053d8474"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              BIG-register
-            </Link>
-          </p>
-          <ul>
-            <li>Psychotherapeut BIG-registratie 59054812016</li>
-            <li>GZ-psycholoog BIG-registratie 39054812025</li>
-          </ul>
-          <p>
-            Senior Schematherapeut, Persoonsgerichte en Experientiele
-            Psychotherapeut (VPeP), Cognitief Gedragstherapeut (VGCT), EMDR
-            Europe Practitioner (Vereniging EMDR Nederland VEN), Emotion
-            Focused-i therapist (EFT).
-          </p>
-          <ul>
-            <li>
-              Supervisor, erkend door de Vereniging voor Gedragstherapie en
-              Cognitieve therapie (VGCt)
-            </li>
-            <li>
-              Supervisor, erkend door de Vereniging voor Schematherapie (VSt)
-            </li>
-          </ul>
+                <h2>Registraties</h2>
+                <ul>
+                    <li>Psychotherapeut, BIG-registratie {business.bigPsychotherapeut}</li>
+                    <li>GZ-psycholoog, BIG-registratie {business.bigGzPsycholoog}</li>
+                </ul>
+                <p>
+                    Beide registraties zijn te controleren in het{" "}
+                    <a
+                        href="https://zoeken.bigregister.nl/zorgverlener/f5926bd8-d83b-44ca-9249-997a053d8474"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        BIG-register
+                    </a>
+                    .
+                </p>
 
-          <h3>AGB-codes</h3>
-          <ul>
-            <li>Persoonlijk AGB: 94015697</li>
-            <li>Praktijk AGB: 94065990</li>
-            <li>KVK-nummer: 81310870</li>
-          </ul>
+                <h3>Specialisaties</h3>
+                <ul>
+                    <li>Senior Schematherapeut</li>
+                    <li>Persoonsgerichte en Experiëntiële Psychotherapeut (VPeP)</li>
+                    <li>Cognitief Gedragstherapeut (VGCT)</li>
+                    <li>EMDR Europe Practitioner (Vereniging EMDR Nederland, VEN)</li>
+                    <li>Emotion Focused-i therapist (EFT)</li>
+                </ul>
 
-          <h2>Beroepsverenigingen</h2>
-          <p>Ik ben lid van de volgende beroepsverenigingen:</p>
-          <ul>
-            <li>
-              Landelijke Vereniging van Vrijgevestigde Psychologen &amp;
-              Psychotherapeuten (LVVP)
-            </li>
-            <li>Vereniging voor Schematherapie (VSt)</li>
-            <li>Vereniging voor Gedrags- en Cognitieve Therapieën (VGCT)</li>
-            <li>
-              Vereniging Persoonsgerichte experiëntiële Psychotherapie (VPeP)
-            </li>
-            <li>Vereniging EMDR Nederland (VEN)</li>
-          </ul>
-        </div>
-      </article>
-    </>
-  );
+                <h3>Supervisor</h3>
+                <ul>
+                    <li>
+                        Supervisor, erkend door de Vereniging voor Gedragstherapie en Cognitieve
+                        therapie (VGCt)
+                    </li>
+                    <li>Supervisor, erkend door de Vereniging voor Schematherapie (VSt)</li>
+                </ul>
+
+                <h3>AGB-codes en KVK</h3>
+                <ul>
+                    <li>Persoonlijk AGB: {business.agbPersoonlijk}</li>
+                    <li>Praktijk AGB: {business.agbPraktijk}</li>
+                    <li>KVK-nummer: {business.kvk}</li>
+                </ul>
+
+                <h2>Beroepsverenigingen</h2>
+                <p>Ik ben lid van de volgende beroepsverenigingen:</p>
+                <ul>
+                    <li>
+                        Landelijke Vereniging van Vrijgevestigde Psychologen &amp; Psychotherapeuten
+                        (LVVP)
+                    </li>
+                    <li>Vereniging voor Schematherapie (VSt)</li>
+                    <li>Vereniging voor Gedrags- en Cognitieve Therapieën (VGCT)</li>
+                    <li>Vereniging Persoonsgerichte experiëntiële Psychotherapie (VPeP)</li>
+                    <li>Vereniging EMDR Nederland (VEN)</li>
+                </ul>
+            </PageBody>
+        </>
+    );
 }

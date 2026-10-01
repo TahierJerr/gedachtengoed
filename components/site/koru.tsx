@@ -1,26 +1,39 @@
+import type { CSSProperties } from "react";
+import { cn } from "@/lib/utils";
+
 type KoruProps = {
     className?: string;
     size?: number;
+    style?: CSSProperties;
 };
 
-export function Koru({ className, size = 40 }: KoruProps) {
+const SPIRAL =
+    "M 79 97 C 99 66, 88 22, 51 21 C 25 21, 13 46, 25 64 C 35 79, 60 77, 64 59 C 67 47, 56 39, 47 44";
+
+/**
+ * Het beeldmerk van de praktijk: een koru (opgerolde varen) in een volle schijf.
+ * De schijf neemt de tekstkleur over, de spiraal is uitgespaard in `--koru-cutout`.
+ */
+export function Koru({ className, size = 40, style }: KoruProps) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
             width={size}
             height={size}
-            className={className}
+            className={cn("shrink-0", className)}
+            style={style}
             aria-hidden="true"
-            role="img"
         >
+            <circle cx="50" cy="50" r="50" fill="currentColor" />
             <path
-                d="M 50 12 C 70 12, 85 28, 85 50 C 85 70, 70 85, 50 85 C 35 85, 22 73, 22 58 C 22 45, 32 35, 45 35 C 55 35, 63 43, 63 53 C 63 60, 57 66, 50 66 C 45 66, 41 62, 41 57 C 41 54, 43 52, 46 52"
+                d={SPIRAL}
                 fill="none"
-                stroke="currentColor"
-                strokeWidth="3.5"
+                stroke="var(--koru-cutout, #ffffff)"
+                strokeWidth="9"
                 strokeLinecap="round"
             />
+            <circle cx="46" cy="46" r="7.5" fill="var(--koru-cutout, #ffffff)" />
         </svg>
     );
 }

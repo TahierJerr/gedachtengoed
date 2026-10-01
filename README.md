@@ -1,147 +1,88 @@
 # Praktijk voor Psychotherapie GedachtenGoed
 
-Een statische marketing website voor Praktijk voor Psychotherapie GedachtenGoed in Veldhoven, met een AVG-conform contactformulier en SEO-geoptimaliseerde structuur.
+Website van Praktijk voor Psychotherapie GedachtenGoed (Siepie Zonderland) in Veldhoven.
+Alle pagina's zijn statisch gegenereerd; alleen het contactformulier gebruikt een serverfunctie.
 
 ## Stack
 
-- **Next.js 16** (App Router) + **TypeScript**
-- **Tailwind CSS v4**
-- **shadcn/ui** componenten (handgeschreven, geen externe init nodig)
-- **react-hook-form** + **Zod** voor formulier-validatie
-- **Resend** + **React Email** voor branded transactional emails
-- **Bun** als package manager
-- **Vercel** als hosting platform (aanbevolen)
+- Next.js 16 (App Router) + TypeScript, Tailwind CSS v4
+- shadcn/ui-componenten (handgeschreven) + react-hook-form + Zod voor het formulier
+- Resend + React Email voor de e-mail van het contactformulier
+- Lettertypen via @fontsource (zelf gehost: geen Google Fonts)
+- Bun als package manager, Vercel als hosting
 
 ## Lokaal draaien
 
 ```bash
 bun install
 cp .env.example .env
-# vul de Resend-gegevens in als je echte e-mails wilt versturen
 bun run dev
 ```
 
-In development hoeven de Resend-variabelen niet ingevuld te zijn. Berichten verschijnen dan in de server-log.
+Zonder Resend-gegevens wordt een formulierbericht lokaal alleen in de serverlog getoond.
 
-### Email templates previewen
+Controles vóór een deploy:
 
 ```bash
-bunx react-email dev --dir ./emails --port 3001
+bunx tsc --noEmit && bun run lint && bun run build
 ```
 
-Open http://localhost:3001 om beide email templates live te bewerken en te previewen.
+## Environment variables (Vercel)
 
-## Productie / deploy
+| Variabele | Waarvoor |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Het adres van de site, voor canonieke links, sitemap en gestructureerde data |
+| `RESEND_API_KEY` | Versturen van het formulierbericht |
+| `CONTACT_FROM_EMAIL` | Afzender, op een domein dat in Resend geverifieerd is |
+| `NEXT_PUBLIC_INTRAMED_DEBITEURNUMMER` | Debiteurnummer uit Mijn Intramed |
+| `NEXT_PUBLIC_INTRAMED_ADM_NUMBER` | Administratienummer (alleen het cijfer, bv. `01`) |
 
-Aanbevolen: **Vercel**.
+Het formulier stuurt één e-mail naar het adres in `lib/site-config.ts`
+(`info@gedachtengoedpsychotherapie.nl`), met de afzender als reply-to. Er gaat geen
+bevestiging naar de afzender en er wordt niets opgeslagen.
 
-1. Push de repository naar GitHub.
-2. Importeer het project in Vercel.
-3. Vul de environment variables in (zie `.env.example`):
-   - `NEXT_PUBLIC_SITE_URL`, bv. `https://gedachtengoedpsychotherapie.nl`
-   - `RESEND_API_KEY`, vraag aan via [resend.com](https://resend.com)
-   - `CONTACT_FROM_EMAIL`, verzendadres op een geverifieerd domein in Resend
-   - `CONTACT_TO_EMAIL`, `GedachtenGoedPsychotherapie@gmail.com`
-   - `NEXT_PUBLIC_INTRAMED_DEBITEURNUMMER`, debiteurnummer uit Mijn Intramed
-   - `NEXT_PUBLIC_INTRAMED_ADM_NUMBER`, administratienummer (alleen het cijfer, bv. `01`)
-4. Deploy.
+## Waar staat wat
+
+- `lib/site-config.ts`: adres, e-mail, werkdagen, registraties en de **wachttijd**
+  (`waitingTime`: aantal weken en datum van bijwerken; wordt op drie plekken getoond)
+- `lib/photos.ts`: alle foto's met alt-tekst en uitsnede; bestanden in `public/images/`
+- `lib/therapies.ts`, `lib/complaints.ts`, `lib/faq.ts`: behandelvormen, klachten en veelgestelde vragen
+- `lib/navigation.ts`: menu en voettekst
+- `lib/schema.ts`: gestructureerde data (MedicalBusiness, Person, FAQ, kruimelpad)
+- `app/_home/`: de secties van de homepage
+- `components/site/`: gedeelde onderdelen (kop, voet, paginakop met ronde foto, callouts)
+- `app/voorwaarden/page.tsx`: tarieven (jaarlijks bijwerken met de NZa-tarieven)
+
+## Ontwerp
+
+Het beeldmerk is de koru in een volle schijf. Die ronde vorm keert terug in de foto's bovenaan
+elke pagina. De kleuren komen uit de lotusvijver-foto's: vijvergroen, bladgroen, lotusroze en
+een koel papier. Koppen en lopende tekst in Literata, menu en formulier in Albert Sans.
+
+## Zoekmachines
+
+- Elke pagina heeft een eigen titel, beschrijving en canonieke link; de URL's zijn gelijk
+  aan die van de oude website.
+- `sitemap.xml` en `robots.txt` worden gegenereerd.
+- Gestructureerde data: praktijk (adres, coördinaten, werkdagen, behandelvormen), Siepie
+  als persoon (BIG-registraties, verenigingen), kruimelpaden en veelgestelde vragen. De
+  vragen staan ook zichtbaar op de pagina Aanmelden en werkwijze.
+- Na livegang op het eigen domein: sitemap aanmelden in Google Search Console en een
+  Google Bedrijfsprofiel voor de praktijk aanmaken of claimen.
+
+## Privacy
+
+- Geen trackers, geen cookies van derden bij het laden van een pagina.
+- De kaart van Google Maps laadt pas na een klik op "Toon de kaart".
+- Formulier: toestemming verplicht, waarschuwing tegen medische gegevens, honeypot en
+  een limiet van 5 berichten per IP-adres per uur.
+- De praktijk regelt zelf: verwerkersovereenkomsten met Resend en Vercel, het
+  verwerkingsregister en de datalekprocedure.
 
 ## Patiëntenportaal (Intramed)
 
-Per maart 2026 is iframe-integratie van het Intramed patiëntenportaal niet meer mogelijk (Safari blokkeert dit). De `/patientenportaal` pagina werkt daarom met directe links naar het portaal in plaats van een ingebed frame.
-
-De URL-template is `https://importaal.intramedonline.nl/{debiteurnummer}/ADM{xx}/{actie}`, met drie acties: `inschrijven`, `inloggen` en de portaal-home (zonder actie). De pagina toont twee prominente knoppen ("Inschrijven" en "Inloggen") plus uitleg over wat patiënten in het portaal kunnen doen.
-
-**Belangrijk:** na de eerste deploy moet Siepie in Intramed zelf de externe-toegang-URL bijwerken naar `https://gedachtengoedpsychotherapie.nl/patientenportaal` (Systeem → Systeemgegevens → tabblad 10: Externe toegang). De oude pagina moet minimaal 14 dagen blijven bestaan in verband met links die nog in omloop zijn in vragenlijst-emails.
-
-## SEO
-
-De website is opgezet volgens Next.js 16 SEO best practices voor 2026:
-
-### Metadata
-
-- **Hierarchical metadata** met root template (`%s | GedachtenGoed`)
-- `metadataBase` ingesteld via `NEXT_PUBLIC_SITE_URL` zodat alle relatieve URL's correct werken
-- Elke pagina heeft een eigen `alternates.canonical`
-- **Open Graph + Twitter Card** met dynamisch gegenereerd 1200×630 OG-image via `app/opengraph-image.tsx`
-- Volledige robots-configuratie inclusief Googlebot-specifieke instructies
-
-### Structured Data (JSON-LD)
-
-- **MedicalBusiness** (subtype van LocalBusiness) op alle pagina's, Google's aanbevolen schema voor zorgaanbieders, geeft toegang tot Maps/local pack rich results
-- **WebSite** schema voor de hele site
-- **Physician** schema op de over-mij pagina met BIG-registraties en beroepsverenigingen
-- **BreadcrumbList** op elke inner page
-- **FAQPage** schema op de aanmelden-pagina met de meest gestelde vragen, kwalificeert nog steeds voor FAQ rich snippets in de zorgsector (zeldzaamheid in 2026)
-
-### Performance
-
-- **Statische generation** voor 11 van de 12 pagina's (alleen `/api/contact` is dynamisch)
-- Geen externe fonts (system-ui) → geen render-blocking CSS, CLS=0
-- Geen tracking scripts → snellere Core Web Vitals
-- Lazy-loaded Google Maps iframe op contactpagina
-
-### Sitemap & robots
-
-- `app/sitemap.ts` met per-pagina prioriteit en `changeFrequency`
-- `app/robots.ts` met sitemap-referentie en host
-
-### Niet-technische aandachtspunten
-
-Na de eerste deploy:
-
-1. **Google Search Console** verifieren en sitemap submitten (`/sitemap.xml`)
-2. **Google Business Profile** aanmaken/claimen voor de Veldhoven-locatie (cruciaal voor "psychotherapie Veldhoven" zoekopdrachten)
-3. **Bing Webmaster Tools** verifieren (15-20% van NL zoekverkeer)
-4. **Schema markup valideren** met Google's [Rich Results Test](https://search.google.com/test/rich-results)
-5. Eventueel **backlinks** opbouwen via: LVVP-praktijkprofiel, GGZ Standaard, ZorgkaartNederland, psychotherapie.nl
-
-## AVG-overwegingen voor het contactformulier
-
-Het formulier is opgezet volgens de AVG-beginselen voor zorgverleners:
-
-1. **Dataminimalisatie**: alleen naam, e-mail, optioneel telefoon, onderwerp en bericht.
-2. **Doelbinding**: gegevens worden uitsluitend gebruikt om contact op te nemen.
-3. **Grondslag = toestemming** (art. 6 lid 1 sub a AVG), expliciete, niet vooraf aangevinkte checkbox.
-4. **Transparantie bij het verzamelmoment**: doel, grondslag, bewaartermijn en link naar de privacyverklaring direct boven het formulier.
-5. **Waarschuwing** tegen het versturen van medische of gezondheidsgegevens.
-6. **Geen tracking, geen cookies van derden, geen Google Fonts** → geen cookiebanner nodig.
-7. **HTTPS only** (door Vercel gegarandeerd).
-8. **Server-side validatie** met Zod naast client-side validatie.
-9. **Rate limiting** in de API route (max 5 berichten per IP per uur).
-10. **Honeypot** in plaats van Google reCAPTCHA, geen US-dataprocessor-leak.
-11. **Geen database**: berichten worden alleen per e-mail doorgestuurd, niet opgeslagen op de server.
-
-### Wat de praktijk zelf nog moet regelen
-
-- **Verwerkersovereenkomst met Resend** en **Vercel**.
-- **Verwerkingsregister** bijhouden.
-- **Datalekprocedure** documenteren.
-- De **privacyverklaring** laten reviewen door bijvoorbeeld de LVVP-jurist.
-
-## Email templates
-
-In `emails/` staan twee React Email templates die qua kleur en typografie 1-op-1 aansluiten op de website (sage green, Georgia serif, cream achtergrond):
-
-- `practice-notification.tsx`, naar Siepie. Bevat alle gegevens van de afzender, een geformatteerde recap van het bericht, en `reply-to` ingesteld op het mailadres van de afzender zodat ze direct kan antwoorden.
-- `client-confirmation.tsx`, naar de aanvrager. Bevestigt ontvangst, recap van eigen bericht, info over wachttijd en verwijsbrief, crisis-instructies onderaan, en de zakelijke voettekst met KVK/AGB/BIG-registraties.
-
-Beide templates zijn geheel via inline CSS gestyled (mail clients ondersteunen geen CSS variables) maar gebruiken een gedeelde `theme.ts` zodat ze in sync blijven met de website.
-
-## Structuur
-
-- `app/api/contact/route.ts`, AVG-conform formulier-endpoint, stuurt beide emails via Resend
-- `app/opengraph-image.tsx`, dynamisch gegenereerd 1200×630 OG image
-- `app/sitemap.ts` / `app/robots.ts`, automatische sitemap en robots.txt
-- `lib/site-config.ts`, alle site-gegevens op één plek
-- `lib/schema.ts`, JSON-LD generators (MedicalBusiness, Physician, FAQ, Breadcrumb, WebSite)
-- `components/seo/json-ld.tsx`, server component voor JSON-LD injectie
-- `emails/`, React Email templates en gedeelde theme
-
-## Aandachtspunten
-
-- De URL-slugs zijn identiek aan de oude website, dus zonder verlies van SEO over te zetten.
-- Het oude kontaktformulier staat als "niet actief", dit nieuwe formulier vervangt dat.
-- De Google Maps-iframe op `/contact` zet cookies van Google, staat vermeld in het cookiebeleid. Voor strikter cookiebeleid kan dit vervangen worden door een statische screenshot met link naar Google Maps.
-
-# gedachtengoed
+Het portaal kan niet meer in een iframe (Safari blokkeert dat). `/patientenportaal` linkt
+daarom rechtstreeks naar `importaal.intramedonline.nl/{debiteurnummer}/ADM{xx}/…`. Na
+livegang moet in Intramed de externe-toegang-URL op
+`https://gedachtengoedpsychotherapie.nl/patientenportaal` staan (Systeem → Systeemgegevens
+→ tabblad 10: Externe toegang).

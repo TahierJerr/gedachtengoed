@@ -1,137 +1,119 @@
 import Link from "next/link";
-import { Mail, MapPin, Clock } from "lucide-react";
+import type { CSSProperties } from "react";
+import { legalLinks } from "@/lib/navigation";
+import { mailto, siteConfig } from "@/lib/site-config";
 import { Koru } from "./koru";
 
+const clientLinks = [
+    { label: "Aanmelden en werkwijze", href: "/aanmelden-en-werkwijze" },
+    { label: "Patiëntenportaal", href: "/patientenportaal" },
+    { label: "Praktijkinfo", href: "/praktijkinfo" },
+    { label: "Contact", href: "/contact" },
+];
+
+const linkClass = "underline-offset-4 hover:text-white hover:underline";
+
 export function SiteFooter() {
+    const { contact, business, crisis, openingHours } = siteConfig;
+
     return (
-        <footer className="bg-muted-background border-t border-border mt-24">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-                    <div className="md:col-span-2">
-                        <div className="flex items-center gap-3 mb-4">
-                            <Koru size={36} className="text-accent-dark" />
-                            <div>
-                                <div className="font-serif text-lg text-accent-dark">
-                                    GedachtenGoed
+        <footer className="mt-24 bg-accent-dark text-[#d5e2da]">
+            <div className="border-b border-white/15">
+                <p className="mx-auto max-w-6xl px-4 py-5 text-[0.975rem] sm:px-6 lg:px-8">
+                    <strong className="font-semibold text-white">Spoed of crisis?</strong> Bel uw
+                    huisarts of de huisartsenpost. {crisis.name} is dag en nacht bereikbaar op{" "}
+                    <a href="tel:08000113" className="font-semibold text-white underline">
+                        {crisis.phone}
+                    </a>
+                    .
+                </p>
+            </div>
+
+            <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1.35fr_0.9fr_0.9fr]">
+                    <div>
+                        <div className="flex items-center gap-3">
+                            <Koru
+                                size={44}
+                                className="text-white"
+                                // De spiraal neemt de kleur van de voettekst-achtergrond aan.
+                                style={{ "--koru-cutout": "var(--accent-dark)" } as CSSProperties}
+                            />
+                            <div className="leading-tight">
+                                <div className="font-serif text-2xl text-white">
+                                    {siteConfig.shortName}
                                 </div>
-                                <div className="text-xs text-muted">
-                                    Praktijk voor Psychotherapie
-                                </div>
+                                <div className="text-sm">{siteConfig.tagline}</div>
                             </div>
                         </div>
-                        <p className="text-sm text-muted leading-relaxed max-w-md">
-                            Professionele psychotherapie op maat, gericht op verandering, herstel
-                            en persoonlijke groei.
+                        <p className="mt-5 max-w-sm text-[0.975rem]">
+                            Professionele psychotherapie op maat, gericht op verandering, herstel en
+                            persoonlijke groei.
                         </p>
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-semibold text-accent-dark mb-3 font-sans">
-                            Contact
-                        </h3>
-                        <ul className="space-y-2 text-sm text-muted">
-                            <li className="flex items-start gap-2">
-                                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-                                <span>Van Aelstlaan 79<br />5503 BC Veldhoven</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <Mail className="h-4 w-4 mt-0.5 shrink-0" />
+                        <h2 className="font-sans text-base font-semibold text-white">Praktijk</h2>
+                        <address className="mt-3 space-y-3 text-[0.975rem] not-italic">
+                            <p>
+                                {contact.street}
+                                <br />
+                                {contact.postalCode} {contact.city}
+                            </p>
+                            <p>
                                 <a
-                                    href="mailto:GedachtenGoedPsychotherapie@gmail.com"
-                                    className="hover:text-accent-dark break-all"
+                                    href={mailto}
+                                    className={`${linkClass} text-[0.9rem] [overflow-wrap:anywhere]`}
                                 >
-                                    GedachtenGoedPsychotherapie@gmail.com
+                                    {contact.email}
                                 </a>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <Clock className="h-4 w-4 mt-0.5 shrink-0" />
-                                <span>Maandag & Dinsdag<br />9:00 – 17:00</span>
-                            </li>
-                        </ul>
+                            </p>
+                            <p>
+                                {openingHours.map((hours) => hours.label).join(" en ")}
+                                <br />
+                                9.00 tot 17.00 uur
+                            </p>
+                        </address>
                     </div>
 
-                    <div>
-                        <h3 className="text-sm font-semibold text-accent-dark mb-3 font-sans">
+                    <nav aria-label="Voor cliënten">
+                        <h2 className="font-sans text-base font-semibold text-white">
                             Voor cliënten
-                        </h3>
-                        <ul className="space-y-2 text-sm text-muted">
-                            <li>
-                                <Link
-                                    href="/patientenportaal"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Patiëntenportaal
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/aanmelden-en-werkwijze"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Aanmelden & werkwijze
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/contact"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Contact
-                                </Link>
-                            </li>
+                        </h2>
+                        <ul className="mt-3 space-y-2 text-[0.975rem]">
+                            {clientLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link href={link.href} className={linkClass}>
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
-                    </div>
+                    </nav>
 
-                    <div>
-                        <h3 className="text-sm font-semibold text-accent-dark mb-3 font-sans">
-                            Informatie
-                        </h3>
-                        <ul className="space-y-2 text-sm text-muted">
-                            <li>
-                                <Link
-                                    href="/voorwaarden"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Voorwaarden
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/privacyverklaring"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Privacyverklaring
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/disclaimer"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Disclaimer
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/cookiebeleid"
-                                    className="hover:text-accent-dark"
-                                >
-                                    Cookiebeleid
-                                </Link>
-                            </li>
+                    <nav aria-label="Informatie">
+                        <h2 className="font-sans text-base font-semibold text-white">Informatie</h2>
+                        <ul className="mt-3 space-y-2 text-[0.975rem]">
+                            {legalLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link href={link.href} className={linkClass}>
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
-                    </div>
+                    </nav>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-muted">
-                    <div>
-                        © {new Date().getFullYear()} Praktijk voor Psychotherapie GedachtenGoed
-                    </div>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1">
-                        <span>KVK 81310870</span>
-                        <span>AGB praktijk 94065990</span>
-                        <span>BIG psychotherapeut 59054812016</span>
-                    </div>
+                <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm sm:flex-row sm:justify-between">
+                    <p>
+                        © {new Date().getFullYear()} {siteConfig.name}
+                    </p>
+                    <ul className="flex flex-wrap gap-x-5 gap-y-1">
+                        <li>KVK {business.kvk}</li>
+                        <li>AGB praktijk {business.agbPraktijk}</li>
+                        <li>BIG psychotherapeut {business.bigPsychotherapeut}</li>
+                    </ul>
                 </div>
             </div>
         </footer>
