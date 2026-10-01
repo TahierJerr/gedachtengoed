@@ -1,7 +1,8 @@
 # Praktijk voor Psychotherapie GedachtenGoed
 
 Website van Praktijk voor Psychotherapie GedachtenGoed (Siepie Zonderland) in Veldhoven.
-Alle pagina's zijn statisch gegenereerd; alleen het contactformulier gebruikt een serverfunctie.
+De site is volledig statisch (Next.js `output: "export"`) en draait op Cloudflare als Worker met
+statische bestanden; alleen het contactformulier is code die op de server draait (`worker/`).
 
 ## Stack
 
@@ -9,17 +10,19 @@ Alle pagina's zijn statisch gegenereerd; alleen het contactformulier gebruikt ee
 - shadcn/ui-componenten (handgeschreven) + react-hook-form + Zod voor het formulier
 - Resend + React Email voor de e-mail van het contactformulier
 - Lettertypen via @fontsource (zelf gehost: geen Google Fonts)
-- Bun als package manager, Vercel als hosting
+- Bun als package manager, Cloudflare Workers als hosting
 
 ## Lokaal draaien
 
 ```bash
 bun install
-cp .env.example .env
-bun run dev
+bun run dev        # de pagina's, met hot reload (het formulier werkt hier niet: geen server)
+bun run build      # foto's klaarzetten, statische export naar out/, markdown en _headers
+bun run preview    # de hele site zoals op Cloudflare, inclusief formulier, op http://localhost:8787
 ```
 
-Zonder Resend-gegevens wordt een formulierbericht lokaal alleen in de serverlog getoond.
+Het formulier lokaal testen: zet `RESEND_API_KEY` en `CONTACT_FROM_EMAIL` in `worker/.dev.vars`
+(staat in .gitignore). Zonder die twee antwoordt het formulier met een nette foutmelding.
 
 Controles vóór een deploy:
 
@@ -27,15 +30,41 @@ Controles vóór een deploy:
 bunx tsc --noEmit && bun run lint && bun run build
 ```
 
-## Environment variables (Vercel)
+## Deploy
+
+```bash
+bun run deploy     # bouwt en zet de Worker "gedachtengoed" live
+```
+
+- `worker/wrangler.jsonc`: naam, statische bestanden uit `out/`, en (na de livegang) de twee domeinen.
+- `worker/index.ts`: www → adres zonder www, `/api/contact`, en elk ander adres dan het echte domein
+  (workers.dev) krijgt `noindex`.
+- `scripts/build-images.ts` + `lib/image-loader.ts`: er is geen beeldserver; elke foto uit `public/images/`
+  staat vooraf als webp in de breedtes uit `lib/image-widths.ts` in `public/img/`.
+- `scripts/after-build.ts`: schrijft `out/<pagina>.md` en `out/_headers` (beveiligingsheaders, cache, noindex
+  voor de markdown-versies).
+
+## Instellingen
+
+Openbare waarden staan in `.env.production` en komen bij het bouwen in de pagina's:
 
 | Variabele | Waarvoor |
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | Het adres van de site, voor canonieke links, sitemap en gestructureerde data |
-| `RESEND_API_KEY` | Versturen van het formulierbericht |
-| `CONTACT_FROM_EMAIL` | Afzender, op een domein dat in Resend geverifieerd is |
 | `NEXT_PUBLIC_INTRAMED_DEBITEURNUMMER` | Debiteurnummer uit Mijn Intramed |
 | `NEXT_PUBLIC_INTRAMED_ADM_NUMBER` | Administratienummer (alleen het cijfer, bv. `01`) |
+
+Geheimen staan niet in een bestand maar bij de Worker in Cloudflare:
+
+```bash
+bunx wrangler secret put RESEND_API_KEY --config worker/wrangler.jsonc
+bunx wrangler secret put CONTACT_FROM_EMAIL --config worker/wrangler.jsonc
+```
+
+| Geheim | Waarvoor |
+|---|---|
+| `RESEND_API_KEY` | Versturen van het formulierbericht |
+| `CONTACT_FROM_EMAIL` | Afzender, op een domein dat in Resend geverifieerd is |
 
 Het formulier stuurt één e-mail naar het adres in `lib/site-config.ts`
 (`info@gedachtengoedpsychotherapie.nl`), met de afzender als reply-to. Er gaat geen

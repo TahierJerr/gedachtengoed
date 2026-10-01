@@ -1,0 +1,27 @@
+// Worker die gedachtengoedpsychotherapie.nl serveert: de statische bestanden uit out/ (incl. _headers),
+// www → adres zonder www, en het contactformulier (/api/contact).
+// Deploy: bun run deploy (vanuit de hoofdmap). Geheimen staan niet hier maar in Cloudflare:
+//   bunx wrangler secret put RESEND_API_KEY --config worker/wrangler.jsonc
+//   bunx wrangler secret put CONTACT_FROM_EMAIL --config worker/wrangler.jsonc
+{
+    "$schema": "../node_modules/wrangler/config-schema.json",
+    "name": "gedachtengoed",
+    "main": "index.ts",
+    "compatibility_date": "2026-09-01",
+    "compatibility_flags": ["nodejs_compat"],
+    "assets": {
+        "directory": "../out",
+        "binding": "ASSETS",
+        "not_found_handling": "404-page",
+        "html_handling": "auto-trailing-slash",
+        "run_worker_first": true
+    },
+    // Custom domains: Cloudflare beheert zelf de DNS-records en het certificaat voor deze twee adressen.
+    // (Tot 01-10-2026 wezen ze naar Vercel: A 76.76.21.21 en www CNAME cname.vercel-dns.com.)
+    "routes": [
+        { "pattern": "gedachtengoedpsychotherapie.nl", "custom_domain": true },
+        { "pattern": "www.gedachtengoedpsychotherapie.nl", "custom_domain": true }
+    ],
+    "workers_dev": true,
+    "observability": { "enabled": true }
+}

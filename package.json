@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "bun scripts/build-images.ts && next build && bun scripts/after-build.ts",
+    "preview": "wrangler dev --config worker/wrangler.jsonc",
+    "deploy": "bun run build && wrangler deploy --config worker/wrangler.jsonc",
     "lint": "eslint",
     "email:dev": "email dev --dir ./emails --port 3001"
   },
@@ -32,13 +33,15 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^16.2.6",
     "@tailwindcss/postcss": "^4",
+    "@types/bun": "^1.4.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.145.0"
   },
   "ignoreScripts": [
     "sharp",

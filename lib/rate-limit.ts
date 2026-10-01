@@ -1,6 +1,6 @@
 /**
  * Eenvoudige begrenzing in het geheugen: maximaal 5 berichten per IP-adres per uur.
- * Op Vercel leeft dit per serverinstantie; het remt misbruik af, samen met de honeypot.
+ * In de Worker leeft dit per instantie; het remt misbruik af, samen met de honeypot.
  */
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_REQUESTS = 5;

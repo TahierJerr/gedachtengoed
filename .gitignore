@@ -33,6 +33,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
+!.env.production
 
 # vercel
 .vercel
@@ -44,3 +45,11 @@ next-env.d.ts
 .vercel
 .env*
 !.env.example
+!.env.production
+
+# foto-varianten, gemaakt door scripts/build-images.ts
+/public/img/
+.wrangler/
+
+# lokale testwaarden voor wrangler dev
+.dev.vars
